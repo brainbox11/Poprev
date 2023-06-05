@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  username  String     @unique
+  password  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  transactions Transaction[]
+
+  @@map("users")
+}
+
+model Artist {
+  id     Int      @id @default(autoincrement())
+  name   String   @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projects Project[]
+
+  @@map("artists")
+}
+
+model Project {
+  id        Int      @id @default(autoincrement())
+  title     String
+  amount    Float
+  artist    Artist   @relation(fields: [artistId], references: [id])
+  artistId  Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tokens    Token[]
+
+  @@map("projects")
+}
+
+model Token {
+  id         Int         @id @default(autoincrement())
+  amount     Float
+  project    Project     @relation(fields: [projectId], references: [id])
+  projectId  Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  transactions Transaction[]
+
+  @@map("tokens")
+}
+
+model Transaction {
+  id           Int      @id @default(autoincrement())
+  transactionType String
+  amount        Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user          User     @relation(fields: [userId], references: [id])
+  userId        Int
+  token         Token    @relation(fields: [tokenId], references: [id])
+  tokenId       Int
+
+  @@map("transactions")
+}
