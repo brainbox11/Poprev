@@ -18,9 +18,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
-  transactions Transaction[]
-
-  @@map("users")
+  transaction Transaction[]
 }
 
 model Artist {
@@ -30,9 +28,7 @@ model Artist {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  projects Project[]
-
-  @@map("artists")
+  project Project[]
 }
 
 model Project {
@@ -45,9 +41,7 @@ model Project {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  tokens    Token[]
-
-  @@map("projects")
+  token    Token[]
 }
 
 model Token {
@@ -59,9 +53,7 @@ model Token {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  transactions Transaction[]
-
-  @@map("tokens")
+  transaction Transaction[]
 }
 
 model Transaction {
@@ -75,6 +67,4 @@ model Transaction {
   userId        Int
   token         Token    @relation(fields: [tokenId], references: [id])
   tokenId       Int
-
-  @@map("transactions")
 }
