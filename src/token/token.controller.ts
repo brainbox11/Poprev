@@ -1,4 +1,4 @@
-import { Controller, Body, Post } from '@nestjs/common';
+import { Controller, Body, Post, Get, Param } from '@nestjs/common';
 import { CreateTransactionDto } from '../transaction/dto/create-transaction.dto';
 import { TokenService } from './token.service';
 import { SellTokenDto } from './dto/sell-token.dto';
@@ -15,6 +15,11 @@ export class TokenController {
   @Post('sell')
   async sellToken(@Body() data: SellTokenDto) {
     return this.tokenService.sellToken(data);
+  }
+
+  @Get(':tokenId/transactions')
+  async getTransactionsByTokenId(@Param('tokenId') tokenId: number) {
+    return this.tokenService.getTransactionsByTokenId(tokenId);
   }
 }
 

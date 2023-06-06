@@ -1,12 +1,19 @@
-import { IsNumber, IsNumberString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsNumberString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateTransactionDto {
-  @IsNumberString()
+  @IsNotEmpty()
+  @Type(() => Number)
+  @IsNumber()
   userId: number;
-
-  @IsNumberString()
+  
+  @IsNotEmpty()
+  @Type(() => Number)
+  @IsNumber()
   projectId: number;
 
-  @IsNumberString()
+  @IsNotEmpty()
+  @Type(() => Number)
+  @IsNumber()
   amount: number;
 }

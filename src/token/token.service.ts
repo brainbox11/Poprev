@@ -62,4 +62,23 @@ export class TokenService {
 
     return sellTransaction;
   }
+
+  async getTransactionsByTokenId(tokenId: number) {
+    return this.prisma.transaction.findMany({
+      where: {
+        tokenId: parseInt(tokenId+''),
+      },
+    });
+  }
+
+//   async getUserTokenInvestments(userId: number) {
+//     return this.prisma.token.findMany({
+//       where: {
+//         userId: userId,
+//       },
+//       include: {
+//         project: true,
+//       },
+//     });
+//   }
 }
