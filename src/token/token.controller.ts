@@ -1,8 +1,10 @@
-import { Controller, Body, Post, Get, Param } from '@nestjs/common';
+import { Controller, Body, Post, Get, Param, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { CreateTransactionDto } from '../transaction/dto/create-transaction.dto';
 import { TokenService } from './token.service';
 import { SellTokenDto } from './dto/sell-token.dto';
+import { JwtGuard } from '../auth/guard/jwt.guard';
 
+@UseGuards(JwtGuard)
 @Controller('tokens')
 export class TokenController {
   constructor(private readonly tokenService: TokenService) {}

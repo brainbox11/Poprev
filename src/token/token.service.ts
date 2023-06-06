@@ -71,14 +71,4 @@ export class TokenService {
     });
   }
 
-//   async getUserTokenInvestments(userId: number) {
-//     return this.prisma.token.findMany({
-//       where: {
-//         userId: userId,
-//       },
-//       include: {
-//         project: true,
-//       },
-//     });
-//   }
 }

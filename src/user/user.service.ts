@@ -23,4 +23,15 @@ export class UserService {
 
     return user;
   }
+
+  async getUserTokenInvestments(userId: number) {
+    return this.prisma.transaction.findMany({
+      where: {
+        userId: userId,
+      },
+    //   include: {
+    //     project: true,
+    //   },
+    });
+  }
 }

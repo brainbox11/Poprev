@@ -1,4 +1,4 @@
-import { Controller, Get, Patch, Req, UseGuards, Body } from '@nestjs/common';
+import { Controller, Get, Patch, Req, UseGuards, Body, Param, ParseIntPipe } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtGuard } from '../auth/guard';
 import { GetUser } from '../auth/decorator';
@@ -22,5 +22,18 @@ export class UserController {
         @Body() dto: EditUserDto,
     ) {
         return this.userService.editUser(userId, dto);
+    }
+
+    @Get(':userId/token-investments')
+    async getUserTokenInvestments(
+        @Param('userId', ParseIntPipe) userId: number,
+    ) {
+        const userTokenInvestments = await this.userService.getUserTokenInvestments(userId);
+        // return userTokenInvestments.map((token) => ({
+        //   id: token.id,
+        //   amount: token.amount,
+        //   project: token.project,
+        // }));
+        return userTokenInvestments;
     }
 }
